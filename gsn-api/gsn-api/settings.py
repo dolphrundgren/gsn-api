@@ -24,7 +24,7 @@ SECRET_KEY = 'gsn-api.gsnsecrets.gsn_django_secretkey'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -36,21 +36,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'user_app.apps.UserAppConfig',
     'gsndb.apps.GsndbConfig'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -62,10 +62,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication'
     ),
 }
-
-CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
-)
 
 ROOT_URLCONF = 'gsn-api.urls'
 
@@ -93,18 +89,22 @@ WSGI_APPLICATION = 'gsn-api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gsndb',
-        'USER': 'gsn',
-        'PASSWORD': 'gsn.gsnsecrets.db_password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432 # default postgres port
     }
 }
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'gsn-api.utils.my_jwt_response_handler'
 }
+
+# Allow access from any website to the API.
+#You will want to use CORS_ORIGIN_WHITELIST during production!
+CORS_ORIGIN_ALLOW_ALL = True
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -143,8 +143,3 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
-
-# Activate Django-Heroku
-import django_heroku
-django_heroku.settings(locals())

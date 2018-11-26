@@ -6,17 +6,15 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
-whitenoise = "*"
 gunicorn = "*"
-django-heroku = "*"
-"psycopg2" = "*"
+psycopg2 = "*"
 graphviz = "*"
 djangorestframework-jwt = "*"
-django-cors-headers = "*"
 httpie = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 coverage = "*"
 
 [requires]
-python_version = "*"
+python_version = "3"

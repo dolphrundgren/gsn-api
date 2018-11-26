@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postresql/data/
+  web:
+    build: .
+    command: python /code/gsn-api/manage.py migrate --noinput
+    command: python /code/gsn-api/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    environment:
+      - SECRET_KEY=developerkey
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
