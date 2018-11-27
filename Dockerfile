@@ -11,7 +11,7 @@ RUN mkdir /code
 # Set work directory
 WORKDIR /code
 
-# Move Projecto to the working directory
+# Move Project to to the working directory
 ADD . /code/
 
 # Install dependencies

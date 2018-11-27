@@ -1,10 +1,10 @@
-version: '3.6'
+version: '2.4'
 
 services:
   db:
     image: postgres
     volumes:
-      - postgres_data:/var/lib/postresql/data/
+      - gsn-data:/var/lib/postgresql/data/
   web:
     build: .
     command: python /code/gsn-api/manage.py migrate --noinput
@@ -19,4 +19,4 @@ services:
       - db
 
 volumes:
-  postgres_data:
+  gsn-data:
