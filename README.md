@@ -7,7 +7,7 @@
 * using Homebrew, install git
 
 ## Starting from scratch:
-Now, inside your favorite shell (Mac users typically user Terminal), go to a directory of your choosing and clone git repo from 'HTempleman/gsn-api' (Soon to be GSN/gsn-api hopefully!)
+Now, inside your favorite shell (Mac users typically use Terminal), go to a directory of your choosing and clone git repo from 'HTempleman/gsn-api' (Soon to be GSN/gsn-api hopefully!)
 
 type the following command in the root directory (the directory that contains the Dockerfile)
 
@@ -53,6 +53,8 @@ You'll be presented with a list of entries in a table. Under the 'Repository' co
 ```bash
 docker rmi <Image ID>
 ```
+___
+#### I'm being harrased by a container that won't die...
 Because you ran `docker-compose down` earlier, you shouldn't get any errors telling you that a container is running. If, for some reason, a container is still running you can delete it by following similar steps. First list the containers:
 ```bash
 docker ps
