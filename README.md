@@ -49,9 +49,9 @@ Next, check if there are any docker images that you might wanna get rid of, in o
 ```bash
 docker images
 ```
-You'll be presented with a list of entries in a table. Under the 'Repository' column, you should see our apis image with a name along the lines of 'gsn-api_web'. Git rid of it by copying the number within the 'Image ID' column and running the following command with that number in the ```<Image ID>``` placeholder.
+You'll be presented with a list of entries in a table. Under the 'Repository' column, you should see our apis image with a name along the lines of 'gsn-api_web'. Git rid of it by copying the number within the 'Image ID' column and running the following command with that number in the ```<IMAGE ID>``` placeholder.
 ```bash
-docker rmi <Image ID>
+docker rmi <IMAGE ID>
 ```
 ___
 #### I'm being harrased by a container that won't die...
@@ -61,7 +61,7 @@ docker ps
 ```
 And then delete the container by using the 'Container ID' number
 ```bash
-docker rm <Container ID>
+docker rm <CONTAINER ID>
 ```
 
 With that out of the way, you should be good to create another docker image with the most recent version of the gsn-api by following the steps in the first section.
