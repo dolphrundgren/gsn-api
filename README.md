@@ -1,14 +1,15 @@
 
 
-GSN-API instructions:
+# GSN-API instructions:
 
 * download docker and create account
 * install Homebrew (here I'm assuming that you're using a Macintosh)
 * using Homebrew, install git
 
-Now, go to a directory of your choosing and clone git repo from 'HTempleman/gsn-api' (Soon to be GSN/gsn-api hopefully!)
+## Starting from scratch:
+Now, inside your favorite shell (Mac users typically user Terminal), go to a directory of your choosing and clone git repo from 'HTempleman/gsn-api' (Soon to be GSN/gsn-api hopefully!)
 
-type the following command in the root directory (with the Dockerfile)
+type the following command in the root directory (the directory that contains the Dockerfile)
 
 ```bash
 docker-compose run web python /code/gsn-api/manage.py migrate
@@ -20,4 +21,47 @@ Next, type the following:
 docker-compose up
 ```
 
-And that should do it! If you visit `127.0.0.1:8000/gsndb/district` in your browser you should encounter the district view for our REST API. 
+Your local server should now be running and ready to accept connections. In order to load the dummy data, open up a separate tab in your shell, go to the same directory as before, and type the following command:
+
+```bash
+docker-compose exec web python /code/gsn-api/manage.py loaddata firstfixture.json
+```
+
+
+And that should do it! If you visit `127.0.0.1:8000/gsndb/district` in your browser you should encounter the district view for our REST API. It should be populated with the dummy data from our fixture file. 
+
+Once you're done playing around, remember to delete your docker containers with the following command:
+```bash
+docker-compose down
+```
+
+This will kill the containers while retaining the docker images, so that if you want to access the instance of the gsn-api that you've been using, all you have to do is run `docker-compose-up` again.
+If things didn't work out as planned, please refer to the trouble-shooting section.
+
+## What to do if you're using a newer version of the gsn-api:
+Under the current paradigm, if any changes are made to the gsn-api, you will need to create a new docker image to let these changes take effect. First, make sure that you aren't running any containers. Inside of your shell, cd to the directory that containst the gsn-api and type the following comand:
+
+```bash
+docker-compose down
+```
+
+Next, check if there are any docker images that you might wanna get rid of, in our case, that means getting rid of the obselete gsn-api docker images. To do this, you'll need to list the images with the following command:
+```bash
+docker images
+```
+You'll be presented with a list of entries in a table. Under the 'Repository' column, you should see our apis image with a name along the lines of 'gsn-api_web'. Git rid of it by copying the number within the 'Image ID' column and running the following command with that number in the ```<Image ID>``` placeholder.
+```bash
+docker rmi <Image ID>
+```
+Because you ran `docker-compose down` earlier, you shouldn't get any errors telling you that a container is running. If, for some reason, a container is still running you can delete it by following similar steps. First list the containers:
+```bash
+docker ps
+```
+And then delete the container by using the 'Container ID' number
+```bash
+docker rm <Container ID>
+```
+
+With that out of the way, you should be good to create another docker image with the most recent version of the gsn-api by following the steps in the first section.
+
+
