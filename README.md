@@ -28,7 +28,7 @@ docker-compose exec web python /code/gsn-api/manage.py loaddata firstfixture.jso
 ```
 
 
-And that should do it! If you visit `127.0.0.1:8000/gsndb/district` in your browser you should encounter the district view for our REST API. It should be populated with the dummy data from our fixture file. 
+And that should do it! If you visit [http://127.0.0.1:8000/gsndb/district](http://127.0.0.1:8000/gsndb/district) in your browser you should encounter the district view for our REST API. It should be populated with the dummy data from our fixture file. 
 
 Once you're done playing around, remember to delete your docker containers with the following command:
 ```bash
