@@ -64,4 +64,22 @@ docker rm <Container ID>
 
 With that out of the way, you should be good to create another docker image with the most recent version of the gsn-api by following the steps in the first section.
 
+### Things still aren't working!
+For our project, we are storing any permenant changes made to the database locally. This is to allow any changes you make during development to persist. The up side of this is that you don't have to load the dummy data every time you create a container. The down side is that there is occasional disagreement between your local volumes and a newer version of gsn-api. To fix this, you can delete any and all volumes in local storage that aren't currently being used by containers with the following command:
+
+**_Danger- Do not do this if you have other Docker projects that are using volumes!_**
+```bash
+docker volume prune
+```
+**_Instead, do this:_**
+
+If you're the cautious type, you can identify the volume that is associated with gsn-api by typing the following command:
+```bash
+docker volume ls
+```
+And then remove it specifically by typing the following:
+```bash
+docker volume rm <VOLUME NAME>
+```
+
 
